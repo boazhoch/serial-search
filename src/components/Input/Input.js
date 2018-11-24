@@ -12,7 +12,7 @@ class Input extends Component {
     } = event;
     this.changeStateValue(value);
     if (this.validateValue(value)) {
-      this.props.onChange(value);
+      this.props.onChange(event);
     }
   };
 
@@ -25,14 +25,9 @@ class Input extends Component {
   }
 
   render() {
+    const { onValidate, ...props } = this.props;
     return (
-      <input
-        {...this.props}
-        type={this.props.type}
-        onChange={this.onChange}
-        placeholder={this.props.placeholder}
-        value={this.state.value}
-      />
+      <input {...props} onChange={this.onChange} value={this.state.value} />
     );
   }
 }

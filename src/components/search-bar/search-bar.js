@@ -14,8 +14,8 @@ class SearchBar extends Component {
     value: ""
   };
 
-  handleChange = value => {
-    this.setState({ value: value });
+  handleChange = (value, name) => {
+    this.setState({ [name]: value });
   };
 
   handleValidation = value => {
@@ -26,22 +26,27 @@ class SearchBar extends Component {
     return false;
   };
 
-  inputFields = () => {
-    return (
-      <>
-        <Input
-          type={"text"}
-          placeholder={"enter your serial number"}
-          onValidate={this.handleValidation}
-          onChange={this.handleChange}
-        />
-        {"\n"}
-      </>
-    );
+  handleSubmit = () => {
+    console.log("submitted");
   };
 
   render() {
-    return <Form childInputs={this.inputFields} />;
+    return (
+      <Form
+        onSubmit={this.handleSubmit}
+        render={(formControlOnChange, handleValidation) => {
+          return (
+            <Input
+              type={"text"}
+              name={"userName"}
+              placeholder={"enter your serial number"}
+              onValidate={handleValidation}
+              onChange={formControlOnChange}
+            />
+          );
+        }}
+      />
+    );
   }
 }
 
