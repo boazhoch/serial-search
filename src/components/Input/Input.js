@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 
+import style from './Input.module.css';
+
 class Input extends Component {
   state = {
-    value: this.props.value || ""
+    value: this.props.value || "",
+    isTouched: false,
+    isValid: false
   };
 
   // Callback Function
@@ -10,14 +14,20 @@ class Input extends Component {
     const {
       target: { value }
     } = event;
-    this.changeStateValue(value);
-    if (this.validateValue(value)) {
+
+    this.changeStateValue(value, true, this.validateValue(value));
+
+    if (this.state.isValid) {
       this.props.onChange(event);
     }
   };
 
-  changeStateValue(value) {
-    this.setState({ value: value });
+  changeStateValue(value, isTouched, isValid) {
+    this.setState({
+      value: value,
+      isTouched: isTouched || false,
+      isValid: isValid || false
+    });
   }
 
   validateValue(value) {
@@ -26,8 +36,9 @@ class Input extends Component {
 
   render() {
     const { onValidate, ...props } = this.props;
+    console.log(this.state, this.state.isTouched ? this.state.isValid ? style['is-valid'] : style['is-invalid'] : '', style);
     return (
-      <input {...props} onChange={this.onChange} value={this.state.value} />
+      <input className={this.state.isTouched ? this.state.isValid ? style['is-valid'] : style['is-invalid'] : ''} {...props} onChange={this.onChange} value={this.state.value} />
     );
   }
 }

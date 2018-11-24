@@ -34,13 +34,13 @@ class SearchBar extends Component {
     return (
       <Form
         onSubmit={this.handleSubmit}
-        render={(formControlOnChange, handleValidation) => {
+        render={(formControlOnChange, handleValidation, errorHandler) => {
           return (
             <Input
               type={"text"}
               name={"userName"}
               placeholder={"enter your serial number"}
-              onValidate={handleValidation}
+              onValidate={this.handleValidation}
               onChange={formControlOnChange}
             />
           );

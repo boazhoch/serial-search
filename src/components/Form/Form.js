@@ -10,12 +10,7 @@ class Form extends Component {
     };
 
     this.state = {
-      formControls: {
-        name: {
-          value: "",
-          placeholder: "What is your name"
-        }
-      }
+      formControls: {}
     };
   }
 
@@ -26,10 +21,6 @@ class Form extends Component {
         [name]: value
       }
     });
-  };
-
-  handleValidation = () => {
-    return true;
   };
 
   onSubmit = event => {
