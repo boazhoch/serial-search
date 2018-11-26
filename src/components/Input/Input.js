@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import style from './Input.module.css';
+import style from "./Input.module.css";
 
 class Input extends Component {
   state = {
@@ -16,6 +16,8 @@ class Input extends Component {
     } = event;
 
     this.changeStateValue(value, true, this.validateValue(value));
+
+    this.props.onHelperChange(value);
 
     if (this.state.isValid) {
       this.props.onChange(event);
@@ -34,11 +36,25 @@ class Input extends Component {
     return this.props.onValidate(value);
   }
 
+  getValidClassName() {
+    if (!this.state.isTouched) {
+      return;
+    }
+    if (this.state.isValid) {
+      return style["is-valid"];
+    }
+    return style["is-invalid"];
+  }
+
   render() {
     const { onValidate, ...props } = this.props;
-    console.log(this.state, this.state.isTouched ? this.state.isValid ? style['is-valid'] : style['is-invalid'] : '', style);
     return (
-      <input className={this.state.isTouched ? this.state.isValid ? style['is-valid'] : style['is-invalid'] : ''} {...props} onChange={this.onChange} value={this.state.value} />
+      <input
+        className={`${style.input} ${this.getValidClassName()}`}
+        {...props}
+        onChange={this.onChange}
+        value={this.state.value}
+      />
     );
   }
 }

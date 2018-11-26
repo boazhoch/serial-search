@@ -11,7 +11,8 @@ class SearchBar extends Component {
     this.fetcher = new DataFetch(new SerialSearch(CONFIG.BACK_END_END_POINT));
   }
   state = {
-    value: ""
+    value: "",
+    helperString: "Enter your search"
   };
 
   handleChange = (value, name) => {
@@ -22,12 +23,23 @@ class SearchBar extends Component {
     if (value.length === 12) {
       return true;
     }
-    this.handleChange("");
     return false;
   };
 
   handleSubmit = () => {
     console.log("submitted");
+  };
+
+  handleHelper = value => {
+    const len = value.length || 0;
+    const number = 12 - len;
+    let helperString = `You have ${number} more to fill in`;
+    if (number === 0) {
+      helperString = `You are done, Thank you`;
+    } else if (number < 0) {
+      helperString = `Exceeded the number of characters`;
+    }
+    this.setState({ helperString });
   };
 
   render() {
@@ -36,13 +48,19 @@ class SearchBar extends Component {
         onSubmit={this.handleSubmit}
         render={(formControlOnChange, handleValidation, errorHandler) => {
           return (
-            <Input
-              type={"text"}
-              name={"userName"}
-              placeholder={"enter your serial number"}
-              onValidate={this.handleValidation}
-              onChange={formControlOnChange}
-            />
+            <div>
+              <Input
+                type={"text"}
+                name={"userName"}
+                placeholder={
+                  "enter your serial number - something like: C0XXG00Z0G0H"
+                }
+                onHelperChange={this.handleHelper}
+                onValidate={this.handleValidation}
+                onChange={formControlOnChange}
+              />
+              <span>{this.state.helperString}</span>
+            </div>
           );
         }}
       />

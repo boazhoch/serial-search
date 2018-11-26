@@ -1,3 +1,7 @@
+.input {
+  transtion: border-color .2s ease-out;
+}
+
 .is-invalid {
   border-color: red !important;
 }

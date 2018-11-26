@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "../node_modules/wingcss/dist/wing.min.css";
 import App from "./components/App/App";
 import * as serviceWorker from "./serviceWorker";
+import "./index.css";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
